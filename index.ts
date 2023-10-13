@@ -18,7 +18,17 @@ const server = Bun.serve({
       return new Response("Contact us");
     }
 
+    // handle errors
+    if (url.pathname === "/error") {
+      throw new Error("Something went wrong");
+    }
+
     return new Response("Not found", { status: 404 });
+  },
+  error(error) {
+    return new Response(`<pre> ${error} \n ${error.stack} </pre>`, {
+      headers: { "Content-type": "text/html" },
+    });
   },
 });
 
