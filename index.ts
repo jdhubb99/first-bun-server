@@ -1,9 +1,11 @@
-const z = 10;
+import figlet from "figlet";
 
-const read = (text: string) => {
-  return text;
-};
+const server = Bun.serve({
+  port: 3000,
+  fetch(req) {
+    const body = figlet.textSync("This is my first web server with Bun!");
+    return new Response(body);
+  },
+});
 
-const message = read("Hello World");
-
-console.log(message);
+console.log(`Server running at http://localhost:${server.port}`);
