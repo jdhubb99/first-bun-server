@@ -23,6 +23,10 @@ const server = Bun.serve({
       throw new Error("Something went wrong");
     }
 
+    if (url.pathname === "/greet") {
+      return new Response(Bun.file("./greet.txt"));
+    }
+
     return new Response("Not found", { status: 404 });
   },
   error(error) {
